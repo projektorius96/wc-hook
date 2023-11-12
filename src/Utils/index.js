@@ -33,3 +33,12 @@ export function registerGetterSetter(_thisArg){
         })
     )
 }
+
+export function hasChanged(oldValue, newValue){
+    if (oldValue !== newValue){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
