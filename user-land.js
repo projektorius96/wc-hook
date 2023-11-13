@@ -26,11 +26,17 @@ document.body.appendChild(
         wc_name: 'wc-matrix',
         props: [],
         observings: new Map([
-            /* notifier : [property, oldValue/newValue] */
+        /* notifier_conforming_signature : 
+            [property, oldValue/newValue] 
+        */
             ['version', 1],
             ['encodings', encodeBASE64([8, 16, 32, 64])],
         ]),
-        observer: notifier,
+        life_cycling: {
+            isObserved: notifier,
+            isMounted: ()=> console.log("isMounted"),
+            isDestroyed: ()=> console.log("isDestroyed")
+        }
     }, )
 )
 
