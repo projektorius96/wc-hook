@@ -1,5 +1,5 @@
 import { registerAttrs, registerGetterSetter, hasChanged, encodeBASE64, decodeBASE64} from './Utils/index.js';
-function setHTMLElement({wc_name, observings, life_cycling = {isObserved: ()=>false, isMounted: ()=>Boolean(!null), isDestroyed: ()=>Boolean(!!null)}, props = []}){
+function setHTMLElement(wc_name, {observings, lifecycles = {isObserved: ()=>false, isMounted: ()=>Boolean(!null), isDestroyed: ()=>Boolean(!!null)}}, props = []){
 
     customElements.define(String( wc_name ), class extends HTMLElement {
 
@@ -15,15 +15,15 @@ function setHTMLElement({wc_name, observings, life_cycling = {isObserved: ()=>fa
         }
 
         attributeChangedCallback(...params) {
-            life_cycling.isObserved.call(this, ...params)
+            lifecycles.isObserved(...params)
         }
 
         connectedCallback(){
-            life_cycling.isMounted()
+            lifecycles.isMounted()
         }
 
         disconnectedCallback(){
-            life_cycling.isDestroyed()
+            lifecycles.isDestroyed()
         }
     
     });

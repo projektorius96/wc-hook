@@ -20,24 +20,20 @@ function notifier(property, oldValue, newValue) {
     }
 }
 
-
 document.body.appendChild(
-    globalThis.wc_matrix = setHTMLElement({
-        wc_name: 'wc-matrix',
-        props: [],
+    globalThis.wc_matrix = setHTMLElement('captain-hook', {
         observings: new Map([
-        /* notifier_conforming_signature : 
-            [property, oldValue/newValue] 
-        */
             ['version', 1],
             ['encodings', encodeBASE64([8, 16, 32, 64])],
         ]),
-        life_cycling: {
+        lifecycles: {
             isObserved: notifier,
+            /* DEV_NOTE # isMounted console.logs on the very first load of component */
             isMounted: ()=> console.log("isMounted"),
+            /* DEV_NOTE # Remove from DevTools to observe the following console.log message */
             isDestroyed: ()=> console.log("isDestroyed")
         }
-    }, )
+    })
 )
 
 ///*  === EXAMPLES # HOW TO USE GETTER/SETTER PAIRS FOR EACH OF ATTRIBUTES OBSERVED === */
