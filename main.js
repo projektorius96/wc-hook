@@ -2,6 +2,14 @@ import { setHTMLElement, encodeBASE64/* , decodeBASE64 */} from "./src/index";
 
 function notifier(property, oldValue, newValue) {
     //   DEV_NOTE # you would need to use decodeBASE64 somewhere inside switch depending on your case;
+    /* //      - if, for an example, decoding value is an array then consider the following function that casts attribute Base64 value back to Array e.g.
+        function castToArray(decoding_value){
+            if (decodeBASE64(decoding_value).search(Array.name) === 0){
+                decodeBASE64(decoding_value).split(",").splice(1).map((v)=>v = parseInt(v))
+            }
+        }
+        castToArray("QXJyYXksOCwxNiwzMiw2NA==") // # [8, 16, 32, 64]
+    */
     switch (property) {
         /* DEV_NOTE # each case value is what you registered at setHTMLElement "observings" property */
         case 'version':
@@ -24,7 +32,8 @@ document.body.appendChild(
     globalThis.wc_matrix = setHTMLElement('captain-hook', {
         observings: new Map([
             ['version', 1],
-            ['encodings', encodeBASE64([8, 16, 32, 64])],
+            /* TIP: explicitly give type of 'Array' to be user-friendlier whilst decoding (see – 'notifier' function declaration above for decodeBASE64) */
+            ['encodings', encodeBASE64([Array.name, 8, 16, 32, 64])],
         ]),
         lifecycles: {
             isObserved: notifier,
