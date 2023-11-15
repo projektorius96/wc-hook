@@ -7,15 +7,14 @@ export function decodeBASE64(...params){
 }
 
 export function registerAttrs(list){
+    registerGetterSetter.prototype._attrs = [...list];
     return (
-        Array.from(
-            new Map(list)
-        )
+        Array.from(list.keys())
     )
 }
 
 export function registerGetterSetter(_thisArg){
-    const _attrs = _thisArg.constructor.observedAttributes;
+    const _attrs = registerGetterSetter.prototype._attrs;
     return (
         [...new Array(_attrs.length)].forEach((_, i)=>{
 
@@ -32,4 +31,13 @@ export function registerGetterSetter(_thisArg){
 
         })
     )
+}
+
+export function hasChanged(oldValue, newValue){
+    if (oldValue !== newValue){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
