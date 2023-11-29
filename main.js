@@ -1,6 +1,7 @@
 import { setHTMLElement, encodeBASE64/* , decodeBASE64 */} from "./src/index";
 
 function notifier(property, oldValue, newValue) {
+    //   DEV_TIP # refer to README.md for possible Base64 pitfalls in JavaScript
     //   DEV_NOTE # you would need to use decodeBASE64 somewhere inside switch depending on your case;
     /* //      - if, for an example, decoding value is an array then consider the following function that casts attribute Base64 value back to Array e.g.
         function castToArray(decoding_value){
@@ -30,6 +31,13 @@ function notifier(property, oldValue, newValue) {
 
 document.body.appendChild(
     globalThis.wc_matrix = setHTMLElement('captain-hook', {
+        _constructor: {
+            body: function(origin, citizenship){
+                this.origin = origin;
+                this.citizenship = citizenship;
+            },
+            props: [1, "alpha"]
+        },
         observings: new Map([
             ['version', 1],
             /* TIP: explicitly give type of 'Array' to be user-friendlier whilst decoding (see – 'notifier' function declaration above for decodeBASE64) */
@@ -50,3 +58,7 @@ document.body.appendChild(
 /* globalThis.wc_matrix.version = Math.random() */// SETTER EXAMPLE
 /* globalThis.wc_matrix.encodings */// # GETTER EXAMPLE
 /* globalThis.wc_matrix.encodings = [] */// SETTER EXAMPLE
+
+///* IF _CONSTRUCTOR WAS USED */
+/* globalThis.wc_matrix.origin */
+/* globalThis.wc_matrix.citizenship */
